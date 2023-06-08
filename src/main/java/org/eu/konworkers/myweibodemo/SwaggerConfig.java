@@ -2,6 +2,7 @@ package org.eu.konworkers.myweibodemo;
 
 
 import org.apache.xmlbeans.impl.xb.xsdschema.AppinfoDocument;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 @EnableSwagger2
 public class SwaggerConfig {
 
+
+    @Bean
     public Docket docket(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
