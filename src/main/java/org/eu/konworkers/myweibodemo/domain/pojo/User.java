@@ -1,5 +1,6 @@
 package org.eu.konworkers.myweibodemo.domain.pojo;
 
+import javax.validation.constraints.Email;
 import java.util.Date;
 
 public class User {
@@ -8,6 +9,8 @@ public class User {
     private String password;
     private Date cratedTime;
     private String nickname;
+
+    @Email(message = "请正确输入邮箱")
     private String email;
     private String roleId;
     private String iconAddress;
