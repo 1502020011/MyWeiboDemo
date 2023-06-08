@@ -17,8 +17,7 @@ public class SwaggerConfig {
 
     public Docket docket(){
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .groupName("main");
+                .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo(){
