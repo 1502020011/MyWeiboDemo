@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一个微博网站</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .twitter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .twitter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .twitter-logo img {
+            height: 40px;
+        }
+
+        .twitter-login {
+            display: flex;
+        }
+
+        .twitter-input {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .twitter-content {
+            overflow-y: auto;
+        }
+
+        .twitter-card {
+            margin-bottom: 20px;
+        }
+
+        .twitter-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .twitter-avatar {
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .twitter-username {
+            font-weight: bold;
+        }
+
+        .twitter-timestamp {
+            margin-left: 10px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .load-more-button {
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .no-more-tweets {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <template id="app">
+        <div class="twitter-container">
+            <!-- 顶栏 -->
+            <div class="twitter-header">
+                <div class="twitter-logo">
+                    <!-- 网站LOGO -->
+                    <img src="./logo.png" alt="Twitter Logo">
+                </div>
+                <div class="twitter-login">
+                    <!-- 登录与注册的按钮 -->
+                    <el-button type="primary">登录</el-button>
+                    <el-button type="primary">注册</el-button>
+                </div>
+            </div>
+
+            <!-- 输入框和发布按钮 -->
+            <div class="twitter-input">
+                <el-input v-model="tweet" placeholder="分享你的新鲜事..."></el-input>
+                <el-button type="primary" @click="postTweet">发布</el-button>
+            </div>
+
+            <!-- 动态滚动加载内容的组件 -->
+            <div class="twitter-content">
+                <el-card class="twitter-card" v-for="tweet in tweets" :key="tweet.id">
+                    <div class="twitter-card-header">
+                        <img class="twitter-avatar" :src="tweet.avatar" alt="Avatar">
+                        <div class="twitter-userinfo">
+                            <div class="twitter-username">{{ tweet.username }}</div>
+                            <div class="twitter-timestamp">{{ tweet.timestamp }}</div>
+                        </div>
+                    </div>
+                    <div class="twitter-card-body">{{ tweet.content }}</div>
+                </el-card>
+                <el-button v-if="hasMoreTweets" class="load-more-button" type="primary" @click="loadMoreTweets">加载更多</el-button>
+                <div v-else class="no-more-tweets">没有更多推特了</div>
+            </div>
+        </div>
+    </template>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        name: 'Twitter',
+        data: {
+                page: 1, // 当前页码
+                tweet: '',
+                tweets: [
+                    {
+                        id: Date.now(),
+                        username: 'Jane Doe',
+                        avatar: './avatar.png',
+                        content: '这是第 ' + this.page + ' 页的推特',
+                        timestamp: new Date().toLocaleString()
+                    },
+                    {
+                        id: Date.now(),
+                        username: 'Jane Doe',
+                        avatar: './avatar.png',
+                        content: '这是第 ' + this.page + ' 页的推特',
+                        timestamp: new Date().toLocaleString()
+                    },
+                    {
+                        id: Date.now(),
+                        username: 'Jane Doe',
+                        avatar: './avatar.png',
+                        content: '这是第 ' + this.page + ' 页的推特',
+                        timestamp: new Date().toLocaleString()
+                    },
+                    {
+                        id: Date.now(),
+                        username: 'Jane Doe',
+                        avatar: './avatar.png',
+                        content: '这是第 ' + this.page + ' 页的推特',
+                        timestamp: new Date().toLocaleString()
+                    },
+                    {
+                        id: Date.now(),
+                        username: 'Jane Doe',
+                        avatar: './avatar.png',
+                        content: '这是第 ' + this.page + ' 页的推特',
+                        timestamp: new Date().toLocaleString()
+                    }
+                ], // 推特列表
+                hasMoreTweets: true // 是否还有更多推特
+        },
+        methods: {
+            // 发布推特
+            postTweet() {
+                // TODO: 发布推特的逻辑
+                const newTweet = {
+                    id: Date.now(),
+                    username: 'John Doe',
+                    avatar: './avatar.png',
+                    content: this.tweet,
+                    timestamp: new Date().toLocaleString()
+                }
+                this.tweets.unshift(newTweet)
+                this.tweet = ''
+            },
+            // 加载更多推特
+            loadMoreTweets() {
+                // TODO: 加载更多推特的逻辑
+                this.page++
+                // 模拟异步加载
+                setTimeout(() => {
+                    this.tweets.push(
+                        {
+                            id: Date.now(),
+                            username: 'Jane Doe',
+                            avatar: './avatar.png',
+                            content: '这是第 ' + this.page + ' 页的推特',
+                            timestamp: new Date().toLocaleString()
+                        },
+                        {
+                            id: Date.now(),
+                            username: 'Alice Doe',
+                            avatar: './avatar.png',
+                            content: '这是第 ' + (this.page + 1) + ' 页的推特',
+                            timestamp: new Date().toLocaleString()
+                        }
+                    )
+                    this.hasMoreTweets = this.page < 3 // 假设只有三页推特
+                }, 1000)
+            }
+        }
+    })
+</script>
+</html>
+</html>
