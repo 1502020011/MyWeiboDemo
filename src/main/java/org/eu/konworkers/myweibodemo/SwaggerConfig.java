@@ -15,20 +15,20 @@ import java.util.ArrayList;
 @EnableSwagger2
 public class SwaggerConfig {
 
-//    public Docket docket(){
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo())
-//                .groupName("main");
-//    }
-//
-//    private ApiInfo apiInfo(){
-//        return new ApiInfo("MyWeiboDemo Api Documentation",
-//                "MyWeiboDemo Api Documentation",
-//                "0.0.1",
-//                "",
-//                new Contact("kyou","",""),
-//                "Apache 2.0",
-//                "http://www.apache.org/licenses/LICENSE-2.0",
-//                new ArrayList());
-//    }
+    public Docket docket(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .groupName("main");
+    }
+
+    private ApiInfo apiInfo(){
+        return new ApiInfo("MyWeiboDemo Api Documentation",
+                "MyWeiboDemo Api Documentation",
+                "0.0.1",
+                "",
+                new Contact("kyou","",""),
+                "Apache 2.0",
+                "http://www.apache.org/licenses/LICENSE-2.0",
+                new ArrayList());
+    }
 }
