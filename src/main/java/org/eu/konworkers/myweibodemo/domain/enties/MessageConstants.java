@@ -9,4 +9,12 @@ public class MessageConstants {
     public static final String MESSAGE_POST_FAIL = "发布消息失败";
     public static final String USER_EDIT_SUCCESS = "用户修改成功";
     public static final String USER_EDIT_FAIL = "用户修改失败";
+    public static final String USER_DELETE_SUCCESS = "用户删除成功";
+    public static final String USER_DELETE_FAIL = "用户删除失败";
+    public static final String MESSAGE_DELETE_SUCCESS = "消息删除成功";
+    public static final String MESSAGE_DELETE_FAIL = "消息删除失败";
+    public static final String LOGIN_SUCCESS = "登录成功";
+    public static final String LOGIN_FAIL = "登录失败";
+    public static final String REGISTER_SUCCESS = "注册成功";
+    public static final String REGISTER_FAIL = "注册失败";
 }
