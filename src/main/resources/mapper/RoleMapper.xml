@@ -9,7 +9,7 @@
     </select>
 
     <select id="seleteByCode" parameterType="String" resultType="Role">
-        SELETE * FORM Role WHRER CODE=#{code}
+        SELECT * FROM Role WHERE CODE=#{code}
     </select>
 
 </mapper>
