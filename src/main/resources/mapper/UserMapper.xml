@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.eu.konworkers.myweibodemo.dao.UserDao">
+
+    <!-- 定义查询语句 -->
+    <select id="selectAll" resultType="User">
+        SELECT * FROM User
+    </select>
+
+    <select id="selectById" parameterType="String" resultType="User">
+        SELECT * FROM User WHERE ID=#{id}
+    </select>
+
+    <insert id="add" parameterType="User">
+        INSERT INTO User (ID,NAME,PASSWORD,CREATED_TIME,NICKNAME,EMAIL,ROLE_ID,ICON_ADDRESS) VALUES (#{id}, #{name}, #{password}, #{cratedTime}, #{nickname}, #{email}, #{roleId}, #{iconAddress})
+    </insert>
+
+    <delete id="deleteById" parameterType="String">
+        DELETE FROM User WHERE id = #{id}
+    </delete>
+
+    <update id="editBasicData" parameterType="User">
+        UPDATE user SET NAME = #{name}, PASSWORD = #{password}, NICKNAME = #{nickname} , EMAIL = #{email} WHERE id = #{id}
+    </update>
+</mapper>
