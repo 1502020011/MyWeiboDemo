@@ -321,6 +321,9 @@
                 }, 1000)
             },
             openRegisterandResetform(){
+                this.$nextTick(() => {
+                    this.$refs["reform"].clearValidate();
+                });
                 this.reform = {};
                 this.registerFormVisible = true;
             },
