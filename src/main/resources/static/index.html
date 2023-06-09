@@ -101,7 +101,7 @@
                     <div class="twitter-login">
                         <!-- 登录与注册的按钮 -->
                         <el-button @click="loginFormVisible = true">登录</el-button>
-                        <el-button @click="registerFormVisible = true" type="primary">注册</el-button>
+                        <el-button @click="openRegisterandResetform" type="primary">注册</el-button>
                     </div>
                 </div>
 
@@ -320,8 +320,11 @@
                     this.hasMoreTweets = this.page < 3 // 假设只有三页推特
                 }, 1000)
             },
-            submitreform(){
+            openRegisterandResetform(){
                 this.reform = {};
+                this.registerFormVisible = true;
+            },
+            submitreform(){
                 this.registerFormVisible = false;
                 this.$refs['reform'].validate(valid => {
                     if(valid){
