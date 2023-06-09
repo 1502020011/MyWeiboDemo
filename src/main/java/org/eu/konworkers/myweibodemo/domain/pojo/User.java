@@ -5,17 +5,23 @@ import java.util.Date;
 
 public class User {
     private String id;
-    private String name;
+    private String username;
     private String password;
     private Date cratedTime;
     private String nickname;
-
-    @Email(message = "请正确输入邮箱")
     private String email;
     private String roleId;
     private String iconAddress;
     private Role role;
 
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public Role getRole() {
         return role;
     }
@@ -35,13 +41,7 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getPassword() {
         return password;

@@ -1,12 +1,16 @@
 package org.eu.konworkers.myweibodemo.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.eu.konworkers.myweibodemo.domain.pojo.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Mapper
+@Repository
 public interface UserDao {
 
-    public void add();
+    public void add(User user);
 
     public void deleteById(String id);
 
