@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,12 +18,18 @@ public class HelloController {
     private RoleService roleService;
 
     @RequestMapping("/hello")
-    public String hello(){
+    public String hello() {
         return "Hello World";
     }
 
     @RequestMapping("/roledaotest")
-    public List<Role> role(){
-        return roleService.seleteAll();
+    public List<Role> role(String code) {
+        if (code == null) {
+            return roleService.seleteAll();
+        } else {
+            ArrayList<Role> role = new ArrayList<>();
+            role.add(roleService.seleteByCode(code));
+            return role;
+        }
     }
 }
