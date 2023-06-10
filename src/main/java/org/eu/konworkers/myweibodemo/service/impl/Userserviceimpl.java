@@ -43,4 +43,16 @@ public class Userserviceimpl implements UserService {
 
         userdao.add(user);
     }
+
+    @Override
+    public boolean usernameIsExist(String username) {
+        boolean flag = false;
+
+        User user = userdao.selectByUsername(username);
+
+        if(user != null){
+            flag = true;
+        }
+        return flag;
+    }
 }

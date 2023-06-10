@@ -12,6 +12,10 @@
         SELECT * FROM User WHERE ID=#{id}
     </select>
 
+    <select id="selectByUsername" parameterType="String" resultType="User">
+        SELECT * FROM User WHERE USERNAME=#{username}
+    </select>
+
     <insert id="add" parameterType="User">
         INSERT INTO User (ID,USERNAME,PASSWORD,CREATED_TIME,NICKNAME,EMAIL,ROLE_ID,ICON_ADDRESS) VALUES (#{id}, #{username}, #{password}, #{cratedTime}, #{nickname}, #{email}, #{roleId}, #{iconAddress})
     </insert>

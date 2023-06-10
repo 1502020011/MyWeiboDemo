@@ -19,4 +19,6 @@ public interface UserDao {
     public List<User> selectAll();
 
     public User selectById(String id);
+
+    public User selectByUsername(String username);
 }

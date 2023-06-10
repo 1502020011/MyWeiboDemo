@@ -29,6 +29,10 @@ public class UserConterller {
             return new Result(false, MessageConstants.REGISTER_PASSWORDNOTMATCH_FAIL);
         }
 
+        if(userservice.usernameIsExist(username)){
+            return new Result(false, MessageConstants.REGISTER_USERNAMEISEXIST_FAIL);
+        }
+
         try{
             userservice.register(username,password,nickname,email);
             return new Result(true,MessageConstants.REGISTER_SUCCESS);

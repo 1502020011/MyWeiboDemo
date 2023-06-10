@@ -18,4 +18,5 @@ public class MessageConstants {
     public static final String REGISTER_SUCCESS = "注册成功";
     public static final String REGISTER_FAIL = "注册失败";
     public static final String REGISTER_PASSWORDNOTMATCH_FAIL = "密码不匹配，注册失败";
+    public static final String REGISTER_USERNAMEISEXIST_FAIL = "该用户名已存在，请重新注册";
 }
