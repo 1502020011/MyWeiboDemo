@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface RoleService {
 
-    public List<Role> seleteAll();
+    public List<Role> selectAll();
 
-    public Role seleteByCode(String code);
+    public Role selectByCode(String code);
+
+    public Role selectById(String id);
 }

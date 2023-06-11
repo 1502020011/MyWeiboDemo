@@ -26,10 +26,10 @@ public class HelloController {
     @RequestMapping("/roledaotest")
     public List<Role> role(String code) {
         if (code == null) {
-            return roleService.seleteAll();
+            return roleService.selectAll();
         } else {
             ArrayList<Role> role = new ArrayList<>();
-            role.add(roleService.seleteByCode(code));
+            role.add(roleService.selectByCode(code));
             return role;
         }
     }

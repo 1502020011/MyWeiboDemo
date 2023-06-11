@@ -4,12 +4,16 @@
 <mapper namespace="org.eu.konworkers.myweibodemo.dao.RoleDao">
 
     <!-- 定义查询语句 -->
-    <select id="seleteAll" resultType="Role">
+    <select id="selectAll" resultType="Role">
         SELECT * FROM Role
     </select>
 
-    <select id="seleteByCode" parameterType="String" resultType="Role">
+    <select id="selectByCode" parameterType="String" resultType="Role">
         SELECT * FROM Role WHERE CODE=#{code}
+    </select>
+
+    <select id="selectById" parameterType="String" resultType="Role">
+        SELECT * FROM Role WHERE ID=#{id}
     </select>
 
 </mapper>

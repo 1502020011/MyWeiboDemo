@@ -3,12 +3,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.eu.konworkers.myweibodemo.dao.UserDao">
 
+    <resultMap id="baseresultmap" type="User">
+        <id column="ID" jdbcType="VARCHAR" property="id"></id>
+        <result column="USERNAME" jdbcType="VARCHAR" property="username"></result>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"></result>
+        <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="cratedTime"></result>
+        <result column="NICKNAME" jdbcType="VARCHAR" property="nickname"></result>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"></result>
+        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"></result>
+        <result column="ICON_ADDRESS" jdbcType="VARCHAR" property="iconAddress"></result>
+        <association property="role" javaType="Role" column="ROLE_ID" select="org.eu.konworkers.myweibodemo.dao.RoleDao.selectById"></association>
+    </resultMap>
+
     <!-- 定义查询语句 -->
     <select id="selectAll" resultType="User">
         SELECT * FROM User
     </select>
 
-    <select id="selectById" parameterType="String" resultType="User">
+    <select id="selectById" parameterType="String" resultMap="baseresultmap">
         SELECT * FROM User WHERE ID=#{id}
     </select>
 

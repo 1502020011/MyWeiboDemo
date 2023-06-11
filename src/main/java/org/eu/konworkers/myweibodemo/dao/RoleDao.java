@@ -11,8 +11,9 @@ import java.util.List;
 @Repository
 public interface RoleDao {
 
-    public List<Role> seleteAll();
+    public List<Role> selectAll();
 
-    public Role seleteByCode(String code);
+    public Role selectByCode(String code);
+    public Role selectById(String id);
 
 }

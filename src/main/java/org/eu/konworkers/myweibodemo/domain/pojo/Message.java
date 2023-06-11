@@ -1,10 +1,12 @@
 package org.eu.konworkers.myweibodemo.domain.pojo;
 
+import java.util.Date;
+
 public class Message {
     private String id;
     private String message;
     private String user_Id;
-    private String createdTime;
+    private Date createdTime;
 
     private User user;
 
@@ -35,13 +37,6 @@ public class Message {
         this.user_Id = user_Id;
     }
 
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
 
     public User getUser() {
         return user;
@@ -49,5 +44,13 @@ public class Message {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 }

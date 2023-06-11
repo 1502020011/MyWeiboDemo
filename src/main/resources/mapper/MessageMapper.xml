@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.eu.konworkers.myweibodemo.dao.MessageDao">
+
+    <resultMap id="baseresultmap" type="Message">
+        <id column="ID" jdbcType="VARCHAR" property="id"></id>
+        <result column="MESSAGE" jdbcType="VARCHAR" property="message"></result>
+        <result column="USER_ID" jdbcType="VARCHAR" property="user_Id"></result>
+        <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime"></result>
+        <association property="user" javaType="User" column="USER_ID" select="org.eu.konworkers.myweibodemo.dao.UserDao.selectById"></association>
+    </resultMap>
+
+    <!-- 定义查询语句 -->
+    <select id="selectBypage" resultMap="baseresultmap">
+        SELECT * FROM Message ORDER BY CREATED_TIME ASC
+    </select>
+
+</mapper>

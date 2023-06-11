@@ -17,12 +17,17 @@ public class RoleServiceimpl implements RoleService {
     private RoleDao roleDao;
 
     @Override
-    public List<Role> seleteAll() {
-        return roleDao.seleteAll();
+    public List<Role> selectAll() {
+        return roleDao.selectAll();
     }
 
     @Override
-    public Role seleteByCode(String code) {
-        return roleDao.seleteByCode(code);
+    public Role selectByCode(String code) {
+        return roleDao.selectByCode(code);
+    }
+
+    @Override
+    public Role selectById(String id) {
+        return roleDao.selectById(id);
     }
 }

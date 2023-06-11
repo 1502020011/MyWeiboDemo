@@ -96,7 +96,7 @@
                 <div class="twitter-header">
                     <div class="twitter-logo">
                         <!-- 网站LOGO -->
-                        <img src="./logo.png" alt="Twitter Logo">
+                        <img src="https://raw.githubusercontent.com/1502020011/MyWeiboDemoImageRepository/main/icon.png" alt="Twitter Logo">
                     </div>
                     <div class="twitter-login">
                         <!-- 登录与注册的按钮 -->
@@ -117,11 +117,11 @@
                         <div class="twitter-card-header">
                             <img class="twitter-avatar" :src="tweet.user.iconAddress" alt="Avatar">
                             <div class="twitter-userinfo">
-                                <div class="twitter-username">{{ tweet.user.username }}</div>
-                                <div class="twitter-timestamp">{{ tweet.timestamp }}</div>
+                                <div class="twitter-username">{{ tweet.user.nickname }}</div>
+                                <div class="twitter-timestamp">{{ tweet.createdTime|formatDate }}</div>
                             </div>
                         </div>
-                        <div class="twitter-card-body">{{ tweet.content }}</div>
+                        <div class="twitter-card-body">{{ tweet.message }}</div>
                     </el-card>
                     <el-button v-if="hasMoreTweets" class="load-more-button" type="primary" @click="loadMoreTweets">加载更多</el-button>
                     <div v-else class="no-more-tweets">没有更多推特了</div>
@@ -208,6 +208,8 @@
         name: 'Twitter',
         data: {
                 page: 1, // 当前页码
+                pagesize: 5,
+                maxpages: null,
                 tweet: '',
                 form: {
                 },
@@ -347,6 +349,24 @@
                     }
                 })
             }
+        },
+        filters: {
+            formatDate(value) {
+                const date = new Date(value);
+                const year = date.getFullYear();
+                const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                const day = ('0' + date.getDate()).slice(-2);
+                const hour = ('0' + date.getHours()).slice(-2);
+                const minute = ('0' + date.getMinutes()).slice(-2);
+                const second = ('0' + date.getSeconds()).slice(-2);
+                return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
+            }
+        },
+        created: function(){
+            axios.get("/message/getmessage?page="+this.page).then((res) => {
+                    this.maxpages = res.data.pages;
+                    this.tweets = res.data.data;
+            } );
         }
     })
 </script>
