@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -31,5 +32,10 @@ public class HelloController {
             role.add(roleService.seleteByCode(code));
             return role;
         }
+    }
+
+    @RequestMapping("/datetest")
+    public Date datetest() {
+        return new Date();
     }
 }

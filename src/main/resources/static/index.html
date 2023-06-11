@@ -115,9 +115,9 @@
                 <div class="twitter-content">
                     <el-card class="twitter-card" v-for="tweet in tweets" :key="tweet.id">
                         <div class="twitter-card-header">
-                            <img class="twitter-avatar" :src="tweet.avatar" alt="Avatar">
+                            <img class="twitter-avatar" :src="tweet.user.iconAddress" alt="Avatar">
                             <div class="twitter-userinfo">
-                                <div class="twitter-username">{{ tweet.username }}</div>
+                                <div class="twitter-username">{{ tweet.user.username }}</div>
                                 <div class="twitter-timestamp">{{ tweet.timestamp }}</div>
                             </div>
                         </div>
