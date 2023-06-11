@@ -209,7 +209,7 @@
         data: {
                 page: 1, // 当前页码
                 pagesize: 5,
-                maxpages: null,
+                maxpages: 0,
                 tweet: '',
                 form: {
                 },
@@ -300,27 +300,16 @@
             // 加载更多推特
             loadMoreTweets() {
                 // TODO: 加载更多推特的逻辑
-                this.page++
-                // 模拟异步加载
-                setTimeout(() => {
-                    this.tweets.push(
-                        {
-                            id: Date.now(),
-                            username: 'Jane Doe',
-                            avatar: './avatar.png',
-                            content: '这是第 ' + this.page + ' 页的推特',
-                            timestamp: new Date().toLocaleString()
-                        },
-                        {
-                            id: Date.now(),
-                            username: 'Alice Doe',
-                            avatar: './avatar.png',
-                            content: '这是第 ' + (this.page + 1) + ' 页的推特',
-                            timestamp: new Date().toLocaleString()
-                        }
-                    )
-                    this.hasMoreTweets = this.page < 3 // 假设只有三页推特
-                }, 1000)
+                this.page++;
+
+                axios.get("/message/getmessage?page="+this.page).then((res) => {
+                    this.maxpages = res.data.pages;
+                    // const newtweets = this.tweets.splice();
+                    // newtweets.push(res.data.data);
+                    // this.tweets = newtweets;
+                    this.tweets.push(...res.data.data);
+                    this.hasMoreTweets = this.page < this.maxpages;
+                } );
             },
             openRegisterandResetform(){
                 this.$nextTick(() => {
@@ -348,6 +337,13 @@
                         this.$message.error('请检查填入的信息是否正确');
                     }
                 })
+            },
+            loadfirsttweets(){
+                axios.get("/message/getmessage?page="+this.page).then((res) => {
+                    this.maxpages = res.data.pages;
+                    this.tweets = res.data.data;
+                    this.hasMoreTweets = this.page < this.maxpages;
+                } );
             }
         },
         filters: {
@@ -362,11 +358,8 @@
                 return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
             }
         },
-        created: function(){
-            axios.get("/message/getmessage?page="+this.page).then((res) => {
-                    this.maxpages = res.data.pages;
-                    this.tweets = res.data.data;
-            } );
+        created() {
+            this.loadfirsttweets();
         }
     })
 </script>
