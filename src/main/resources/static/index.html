@@ -309,7 +309,7 @@
                     message: this.tweet,
                     id: this.LoggedinUser.id
                 };
-                if(tweet.message.trim() ==='' ){
+                if(tweet.message.trim() === '' ){
                     this.$message.error("请输入内容");
                     return;
                 }
@@ -324,7 +324,9 @@
                     }else {
                         this.$message.error(res.data.message);
                     }
-                } );
+                } ).finally(() => {
+                    this.tweet = '';
+                });
             },
             // 加载更多推特
             loadMoreTweets() {

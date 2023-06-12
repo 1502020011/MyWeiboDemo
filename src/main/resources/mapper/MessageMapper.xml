@@ -13,11 +13,11 @@
 
     <!-- 定义查询语句 -->
     <select id="selectBypage" resultMap="baseresultmap">
-        SELECT * FROM Message ORDER BY CREATED_TIME ASC
+        SELECT * FROM Message ORDER BY CREATED_TIME DESC
     </select>
 
     <insert id="add" parameterType="Message">
-        INSERT INTO User (ID,MESSAGE,USER_ID,CREATED_TIME) VALUES (#{id},#{message},#{user_Id},#{createdTime})
+        INSERT INTO Message (ID,MESSAGE,USER_ID,CREATED_TIME) VALUES (#{id},#{message},#{user_Id},#{createdTime})
     </insert>
 
 </mapper>

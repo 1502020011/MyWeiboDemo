@@ -25,6 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
             http
+                .headers()
+                    .frameOptions()
+                    .sameOrigin()
+                    .and()
                 .authorizeRequests()
                     .antMatchers("/message/getmessage").permitAll()
                     .antMatchers("/user/register").permitAll()
