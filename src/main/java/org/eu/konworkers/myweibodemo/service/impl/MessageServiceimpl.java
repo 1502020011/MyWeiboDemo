@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Service
 @Transactional
 public class MessageServiceimpl implements MessageService {
@@ -20,5 +23,17 @@ public class MessageServiceimpl implements MessageService {
         PageHelper.startPage(page,5);
         Page<Message> page2 = messagedao.selectBypage();
         return page2;
+    }
+
+    @Override
+    public void sendMessage(String id, String message) {
+        Message message1 = new Message();
+
+        message1.setId(UUID.randomUUID().toString());
+        message1.setMessage(message);
+        message1.setUser_Id(id);
+        message1.setCreatedTime(new Date());
+
+        messagedao.add(message1);
     }
 }

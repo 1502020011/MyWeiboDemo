@@ -6,4 +6,6 @@ import org.eu.konworkers.myweibodemo.domain.pojo.Message;
 
 public interface MessageService {
     public Page<Message> getMessageByPage(Integer page);
+
+    public void sendMessage(String id,String message);
 }

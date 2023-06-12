@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MessageDao {
     public Page<Message> selectBypage();
+
+    public void add(Message message);
 }
