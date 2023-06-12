@@ -24,7 +24,7 @@
         SELECT * FROM User WHERE ID=#{id}
     </select>
 
-    <select id="selectByUsername" parameterType="String" resultType="User">
+    <select id="selectByUsername" parameterType="String" resultMap="baseresultmap">
         SELECT * FROM User WHERE USERNAME=#{username}
     </select>
 

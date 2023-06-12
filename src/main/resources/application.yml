@@ -11,6 +11,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  security:
+    enabled: true
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
