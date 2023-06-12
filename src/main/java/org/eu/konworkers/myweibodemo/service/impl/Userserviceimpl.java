@@ -39,7 +39,7 @@ public class Userserviceimpl implements UserService {
 
         user.setRoleId("5c8616e2-0a1a-444c-993f-e25a88b09325");
 
-        user.setIconAddress("https://raw.githubusercontent.com/1502020011/MyWeiboDemoImageRepository/main/icon.png");
+        user.setIconAddress("https://raw.githubusercontent.com/1502020011/MyWeiboDemoImageRepository/main/104785358_p0_master1200.jpg");
 
         userdao.add(user);
     }
