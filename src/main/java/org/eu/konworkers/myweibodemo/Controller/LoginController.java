@@ -6,6 +6,7 @@ import org.eu.konworkers.myweibodemo.dao.UserDao;
 import org.eu.konworkers.myweibodemo.domain.enties.MessageConstants;
 import org.eu.konworkers.myweibodemo.domain.enties.Result;
 import org.eu.konworkers.myweibodemo.domain.pojo.User;
+import org.eu.konworkers.myweibodemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +25,7 @@ public class LoginController {
     private AuthenticationManager authenticationmanager;
 
     @Autowired
-    private UserDao userdao;
+    private UserService userservice;
 
     @RequestMapping ("/auth")
     public Result login(@RequestBody Map map){
@@ -47,7 +48,7 @@ public class LoginController {
             UserDetails userDetails = (UserDetails) user;
             String user2 = userDetails.getUsername();
 
-            User user3 = userdao.selectByUsername(user2);
+            User user3 = userservice.selectByUsername(user2);
             return new Result(true,MessageConstants.LOGIN_GETLOGGEDIN_SUCCESS,user3);
         } else if (user instanceof String) {
             String username = (String) user;

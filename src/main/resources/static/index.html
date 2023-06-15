@@ -87,6 +87,11 @@
             margin-right: auto;
             align-items: center;
         }
+
+        .block{
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -101,12 +106,13 @@
 
                     <div class="block" v-if="Loggedin">
                         <el-avatar :size="50" :src="LoggedinUser.iconAddress"></el-avatar>
+                        &nbsp;&nbsp;
                         <el-dropdown @command="handleCommand">
                             <span class="el-dropdown-link">
                             {{LoggedinUser.nickname}}<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item >个人主业</el-dropdown-item>
+                                <el-dropdown-item command="main">个人主页</el-dropdown-item>
                                 <el-dropdown-item command="logout">登出</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -418,6 +424,8 @@
             handleCommand(command) {
                 if(command === "logout") {
                     this.logout();
+                }else if(command === "main") {
+                    window.location.href = '/main.html';
                 }
             }
             // onSubmit(){

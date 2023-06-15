@@ -55,4 +55,14 @@ public class Userserviceimpl implements UserService {
         }
         return flag;
     }
+
+    @Override
+    public User selectByUsername(String username) {
+        return userdao.selectByUsername(username);
+    }
+
+    @Override
+    public void edit(User user) {
+        userdao.editBasicData(user);
+    }
 }

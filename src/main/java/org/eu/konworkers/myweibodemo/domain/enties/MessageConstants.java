@@ -21,4 +21,6 @@ public class MessageConstants {
     public static final String REGISTER_USERNAMEISEXIST_FAIL = "该用户名已存在，请重新注册";
     public static final String LOGIN_GETLOGGEDIN_SUCCESS = "获取登录状态成功";
     public static final String LOGIN_GETLOGGEDIN_FAIL = "获取登录状态失败";
+    public static final String UPLOAD_SUCCESS = "文件上传成功";
+    public static final String UPLOAD_FAIL = "文件上传失败";
 }

@@ -37,6 +37,6 @@
     </delete>
 
     <update id="editBasicData" parameterType="User">
-        UPDATE user SET USERNAME = #{username}, PASSWORD = #{password}, NICKNAME = #{nickname} , EMAIL = #{email} WHERE id = #{id}
+        UPDATE User SET NICKNAME = #{nickname} , EMAIL = #{email} , ICON_ADDRESS = #{iconAddress} WHERE id = #{id}
     </update>
 </mapper>

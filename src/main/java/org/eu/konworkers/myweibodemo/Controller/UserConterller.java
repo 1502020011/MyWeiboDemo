@@ -2,8 +2,12 @@ package org.eu.konworkers.myweibodemo.Controller;
 
 import org.eu.konworkers.myweibodemo.domain.enties.MessageConstants;
 import org.eu.konworkers.myweibodemo.domain.enties.Result;
+import org.eu.konworkers.myweibodemo.domain.pojo.User;
 import org.eu.konworkers.myweibodemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +20,7 @@ public class UserConterller {
 
     @Autowired
     private UserService userservice;
+
 
     @RequestMapping("/register")
     public Result register(@RequestBody Map map){
@@ -41,6 +46,35 @@ public class UserConterller {
             return new Result(false,MessageConstants.REGISTER_FAIL);
         }
 
+    }
+
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody Map map){
+        String nickname = (String) map.get("nickname");
+        String email = (String) map.get("email");
+        String iconAddress = (String) map.get("iconAddress");
+
+        System.out.println(nickname +"  "+ email + "  "+ iconAddress);
+
+        UserDetails userdetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String user2 = userdetails.getUsername();
+        User user3 = userservice.selectByUsername(user2);
+        String id = user3.getId();
+
+        System.out.println(id);
+
+        User user = new User();
+        user.setId(id);
+        user.setNickname(nickname);
+        user.setEmail(email);
+        user.setIconAddress(iconAddress);
+
+        try{
+            userservice.edit(user);
+            return new Result(true,MessageConstants.USER_EDIT_SUCCESS);
+        }catch (Exception e){
+            return new Result(true,MessageConstants.USER_EDIT_FAIL);
+        }
     }
 
 }

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>userdetails</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .avatar-uploader .el-upload {
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .avatar-uploader .el-upload:hover {
+            border-color: #409EFF;
+        }
+        .avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 178px;
+            height: 178px;
+            line-height: 178px;
+            text-align: center;
+        }
+        .avatar {
+            width: 178px;
+            height: 178px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <el-form :model="form" ref="form" :rules="form_rules">
+        <el-form-item label="昵称" prop="nickname">
+            <el-col :span="8">
+                <el-input v-model="form.nickname" autocomplete="off" placeholder="请输入昵称"></el-input>
+            </el-col>
+        </el-form-item>
+        <el-form-item label="邮箱"  prop="email">
+            <el-col :span="8">
+                <el-input v-model="form.email" autocomplete="off" placeholder="请输入邮箱"></el-input>
+            </el-col>
+        </el-form-item>
+        <el-form-item label="头像上传"  prop="icon">
+            <el-col :span="12">
+                <el-upload
+                        class="avatar-uploader"
+                        action="/updateicon"
+                        auto-upload="true"
+                        name="imgFile"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <img v-if="form.iconAddress" :src="form.iconAddress" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+            </el-col>
+        </el-form-item>
+    </el-form>
+    <div>
+        <el-button type="primary" @click="edituserdetails">提交修改</el-button>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        name: 'userdetails',
+        data: {
+            LoggedinUser: {},
+            form: {
+                nickname:'',
+                email:'',
+                iconAddress:null
+            },
+            form_rules:{
+                nickname:[
+                    {required: true, message: '请输入昵称', trigger: 'blur'},
+                    {min: 6, max: 32, message: '长度在 6 到 32 个字符', trigger: 'blur'}
+                ],
+                email:[
+                    { required: true, message: '请输入邮箱', trigger: 'blur' },
+                    {type: 'email', message: '邮箱格式不正确' , trigger: 'blur'}
+                ]
+            }
+        },
+        methods: {
+            getloggedin(){
+                axios.get("/getloggedin").then((res) =>{
+                    if(res.data.flag){
+                        this.LoggedinUser = res.data.data;
+                        this.form.nickname = this.LoggedinUser.nickname;
+                        this.form.email = this.LoggedinUser.email;
+                        this.form.iconAddress = this.LoggedinUser.iconAddress;
+                        console.log(res.data.message);
+                    }else {
+                        console.log(res.data.message);
+                    }
+                } );
+            },
+            edituserdetails(){
+                axios.post("/user/edit",this.form).then((res) =>{
+                    if(res.data.flag){
+                        this.$message({
+                            message: '信息修改成功，刷新后生效',
+                            type: 'success'
+                        });
+                    }else {
+                        this.$message.error(res.data.message);
+                    }
+                } );
+            },
+            handleAvatarSuccess(response, file){
+                this.form.iconAddress = response.data;
+                this.$message({
+                    type:response.flag ? 'success' : 'error',
+                    message: response.message
+                })
+            },
+            beforeAvatarUpload(file){
+                const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if(!isJpgOrPng){
+                    this.$message.error('上传的图片只能是JPG或者PNG格式')
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJpgOrPng && isLt2M;
+            }
+        },
+        created() {
+            this.getloggedin();
+        }
+    })
+</script>
+</html>
