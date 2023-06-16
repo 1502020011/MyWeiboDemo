@@ -27,7 +27,7 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="180">
                 <template slot-scope="scope">
-                    <el-button size="small">角色</el-button>
+                    <el-button @click="setrole(scope.row)" size="small">角色</el-button>
                     <el-button @click="deleteuser(scope.row)" type="danger" size="small">删除</el-button>
                 </template>
             </el-table-column>
@@ -42,6 +42,32 @@
             </el-pagination>
         </div>
     </template>
+
+    <div>
+        <el-dialog
+                title="角色修改"
+                :visible.sync="RoleFormVisible"
+                width="30%"
+                center
+        >
+            <el-form :model="roleform">
+                <el-form-item label="角色" prop="role">
+                    <el-col :span="20">
+                        <el-select v-model="roleform.code" placeholder="请选择要设定的角色">
+                            <el-option label="普通用户" value="ROLE_USER"></el-option>
+                            <el-option label="内容审核员" value="ROLE_REVIEWER"></el-option>
+                            <el-option label="网站管理员" value="ROLE_ADMIN"></el-option>
+                        </el-select>
+                    </el-col>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <!--                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <el-button @click="RoleFormVisible = false">取 消</el-button>
+                <el-button type="primary">提交修改</el-button>
+            </div>
+        </el-dialog>
+    </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -63,7 +89,9 @@
                 }
             ],
             page: 1,
-            total: 5
+            total: 5,
+            RoleFormVisible: false,
+            roleform:{}
         },
         methods: {
             handleCurrentChange(Page){
@@ -92,6 +120,11 @@
                         }
                     } )
                 } );
+            },
+            setrole(row){
+                this.RoleFormVisible = true;
+                //this.roleform.code = row.role.code;
+                //this.roleform.id = row.id;
             }
         },
         created() {
