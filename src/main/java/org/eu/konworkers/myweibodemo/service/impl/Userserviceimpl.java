@@ -1,6 +1,8 @@
 package org.eu.konworkers.myweibodemo.service.impl;
 
 import org.eu.konworkers.myweibodemo.dao.UserDao;
+import org.eu.konworkers.myweibodemo.domain.enties.MessageConstants;
+import org.eu.konworkers.myweibodemo.domain.enties.Result;
 import org.eu.konworkers.myweibodemo.domain.pojo.User;
 import org.eu.konworkers.myweibodemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +66,41 @@ public class Userserviceimpl implements UserService {
     @Override
     public void edit(User user) {
         userdao.editBasicData(user);
+    }
+
+//    @Override
+//    public boolean passwordchecker(String id, String oldpassword) {
+//        User user = userdao.selectById(id);
+//        String oldpasswordencode = passwordEncoder.encode(oldpassword);
+//        String password = user.getPassword();
+//
+//        System.out.println(oldpasswordencode);
+//        System.out.println(password);
+//
+//        if(oldpasswordencode.equals(password)){
+//            return true;
+//        }else {
+//            return false;
+//        }
+//    }
+
+    @Override
+    public Result editpassword(String id, String oldpassword , String password) {
+        User user = userdao.selectById(id);
+        String dbpassword = user.getPassword();
+
+        if(passwordEncoder.matches(oldpassword,dbpassword)) {
+            User user1 = new User();
+            user1.setId(id);
+            user1.setPassword(passwordEncoder.encode(password));
+            try{
+                userdao.editpassword(user1);
+                return new Result(true, MessageConstants.EDIT_PASSWORD_SUCCESS);
+            }catch (Exception e){
+                return new Result(false, MessageConstants.EDIT_PASSWORD_FAIL);
+            }
+        }else {
+            return new Result(false, MessageConstants.EDIT_PASSWORDNOTMATCH_FAIL);
+        }
     }
 }

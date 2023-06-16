@@ -21,4 +21,6 @@ public interface UserDao {
     public User selectById(String id);
 
     public User selectByUsername(String username);
+
+    public void editpassword(User user);
 }

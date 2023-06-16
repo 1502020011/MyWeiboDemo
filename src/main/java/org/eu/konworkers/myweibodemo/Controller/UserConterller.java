@@ -54,14 +54,10 @@ public class UserConterller {
         String email = (String) map.get("email");
         String iconAddress = (String) map.get("iconAddress");
 
-        System.out.println(nickname +"  "+ email + "  "+ iconAddress);
-
         UserDetails userdetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String user2 = userdetails.getUsername();
         User user3 = userservice.selectByUsername(user2);
         String id = user3.getId();
-
-        System.out.println(id);
 
         User user = new User();
         user.setId(id);
@@ -75,6 +71,25 @@ public class UserConterller {
         }catch (Exception e){
             return new Result(true,MessageConstants.USER_EDIT_FAIL);
         }
+    }
+
+    @RequestMapping("/editpassword")
+    public Result editpassword(@RequestBody Map map){
+        String password = (String) map.get("password");
+        String password2 = (String) map.get("password2");
+        if(!password.equals(password2)){
+            return new Result(false, MessageConstants.EDIT_PASSWORDNOTMATCH_FAIL);
+        }
+
+        String oldpassword = (String) map.get("oldpassword");
+        UserDetails userdetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String user2 = userdetails.getUsername();
+        User user3 = userservice.selectByUsername(user2);
+        String id = user3.getId();
+
+        Result passwordresult = userservice.editpassword(id, oldpassword, password);
+
+        return passwordresult;
     }
 
 }

@@ -39,4 +39,8 @@
     <update id="editBasicData" parameterType="User">
         UPDATE User SET NICKNAME = #{nickname} , EMAIL = #{email} , ICON_ADDRESS = #{iconAddress} WHERE id = #{id}
     </update>
+
+    <update id="editpassword" parameterType="User">
+        UPDATE User SET PASSWORD = #{password} WHERE id = #{id}
+    </update>
 </mapper>

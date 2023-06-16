@@ -23,4 +23,7 @@ public class MessageConstants {
     public static final String LOGIN_GETLOGGEDIN_FAIL = "获取登录状态失败";
     public static final String UPLOAD_SUCCESS = "文件上传成功";
     public static final String UPLOAD_FAIL = "文件上传失败";
+    public static final String EDIT_PASSWORDNOTMATCH_FAIL = "密码不匹配，修改失败";
+    public static final String EDIT_PASSWORD_SUCCESS = "密码修改成功";
+    public static final String EDIT_PASSWORD_FAIL = "密码修改失败";
 }
