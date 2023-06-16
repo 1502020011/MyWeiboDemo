@@ -20,4 +20,8 @@
         INSERT INTO Message (ID,MESSAGE,USER_ID,CREATED_TIME) VALUES (#{id},#{message},#{user_Id},#{createdTime})
     </insert>
 
+    <delete id="delete" parameterType="String">
+        DELETE FROM Message WHERE ID = #{id}
+    </delete>
+
 </mapper>

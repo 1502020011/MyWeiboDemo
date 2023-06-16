@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>messagereviwer</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app">
+  <template>
+    <el-table :data="messageData" style="width: 100%">
+        <el-table-column prop="id" label="编号" width="360">
+        </el-table-column>
+      <el-table-column prop="createdTime" label="发送日期" width="180">
+          <template slot-scope="scope">
+              {{ scope.row.createdTime | formatDate }}
+          </template>
+      </el-table-column>
+      <el-table-column prop="user.username" label="用户名" width="180">
+      </el-table-column>
+      <el-table-column prop="message" label="消息内容">
+      </el-table-column>
+        <el-table-column fixed="right" label="操作" width="100">
+            <template slot-scope="scope">
+                <el-button @click="deletemessage(scope.row)" type="danger">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <div class="block">
+      <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page.sync="page"
+              :page-size="5"
+              layout="total, prev, pager, next"
+              :total="total">
+      </el-pagination>
+    </div>
+  </template>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    name: 'userdetails',
+    data: {
+      messageData:[{
+          id: '0bba3929-60b2-4a21-9768-fa6d5b7737f5',
+          createdTime: new Date(),
+          user: {
+              username:'test202306100115'
+          },
+          message: '测试20230611'
+      }],
+      page: 1 ,
+      total: 100
+    },
+    methods: {
+      handleCurrentChange(Page){
+          this.page = Page;
+          this.loadmessage();
+      },
+      deletemessage(row){
+          this.$confirm("你确定要删除此消息吗？","提示",{
+              type:'warning'
+          }).then( () => {
+              axios.get("/message/deletemessage?id="+row.id).then((res) => {
+                  if(res.data.flag){
+                      this.$message({
+                          type:'success',
+                          message:res.data.message
+                      });
+                      this.loadmessage();
+                  }else {
+                      this.$message.error(res.data.message);
+                  }
+              } )
+          } );
+      },
+      loadmessage(){
+          axios.get("/message/getmessage?page="+this.page).then((res) => {
+              this.total = res.data.total;
+              this.messageData = res.data.data;
+          } );
+      }
+    },
+    created() {
+          this.loadmessage();
+    },
+    filters: {
+          formatDate(value) {
+              const date = new Date(value);
+              const year = date.getFullYear();
+              const month = ('0' + (date.getMonth() + 1)).slice(-2);
+              const day = ('0' + date.getDate()).slice(-2);
+              const hour = ('0' + date.getHours()).slice(-2);
+              const minute = ('0' + date.getMinutes()).slice(-2);
+              const second = ('0' + date.getSeconds()).slice(-2);
+              return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
+          }
+    }
+  })
+</script>
+</html>

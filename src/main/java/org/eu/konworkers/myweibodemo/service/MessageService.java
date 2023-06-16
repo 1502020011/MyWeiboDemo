@@ -8,4 +8,6 @@ public interface MessageService {
     public Page<Message> getMessageByPage(Integer page);
 
     public void sendMessage(String id,String message);
+
+    public void delete(String id);
 }

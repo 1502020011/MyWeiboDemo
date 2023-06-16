@@ -49,4 +49,17 @@ public class MessageController {
             return new Result(false, MessageConstants.MESSAGE_POST_FAIL);
         }
     }
+
+    @RequestMapping("deletemessage")
+    public Result deletemessage(String id){
+        if( id == null || "".equals(id.trim()) ) {
+            return new Result(false,"非法请求");
+        }
+        try{
+            messageservice.delete(id);
+            return new Result(true,MessageConstants.MESSAGE_DELETE_SUCCESS);
+        }catch (Exception e){
+            return new Result(false,MessageConstants.MESSAGE_DELETE_FAIL);
+        }
+    }
 }

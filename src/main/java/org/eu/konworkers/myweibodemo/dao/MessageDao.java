@@ -12,4 +12,6 @@ public interface MessageDao {
     public Page<Message> selectBypage();
 
     public void add(Message message);
+
+    public void delete(String id);
 }

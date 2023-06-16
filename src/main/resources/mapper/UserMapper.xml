@@ -33,14 +33,14 @@
     </insert>
 
     <delete id="deleteById" parameterType="String">
-        DELETE FROM User WHERE id = #{id}
+        DELETE FROM User WHERE ID = #{id}
     </delete>
 
     <update id="editBasicData" parameterType="User">
-        UPDATE User SET NICKNAME = #{nickname} , EMAIL = #{email} , ICON_ADDRESS = #{iconAddress} WHERE id = #{id}
+        UPDATE User SET NICKNAME = #{nickname} , EMAIL = #{email} , ICON_ADDRESS = #{iconAddress} WHERE ID = #{id}
     </update>
 
     <update id="editpassword" parameterType="User">
-        UPDATE User SET PASSWORD = #{password} WHERE id = #{id}
+        UPDATE User SET PASSWORD = #{password} WHERE ID = #{id}
     </update>
 </mapper>

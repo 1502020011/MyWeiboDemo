@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/auth").permitAll()
                     .antMatchers("/getloggedin").permitAll()
                     .antMatchers("/index.html").permitAll()
+                    .antMatchers("/messagereviewer.html").hasAnyRole("REVIEWER","ADMIN")
+                    .antMatchers("/message/deletemessage").hasAnyRole("REVIEWER","ADMIN")
                     .anyRequest()
                     .authenticated()
                     .and()

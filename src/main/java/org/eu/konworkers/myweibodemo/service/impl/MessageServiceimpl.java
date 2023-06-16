@@ -36,4 +36,9 @@ public class MessageServiceimpl implements MessageService {
 
         messagedao.add(message1);
     }
+
+    @Override
+    public void delete(String id) {
+        messagedao.delete(id);
+    }
 }
