@@ -18,3 +18,5 @@ mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: org.eu.konworkers.myweibodemo.domain.pojo
 
+server:
+  port: 28080
