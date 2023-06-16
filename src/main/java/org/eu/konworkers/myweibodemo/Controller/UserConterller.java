@@ -1,7 +1,11 @@
 package org.eu.konworkers.myweibodemo.Controller;
 
+import com.github.pagehelper.Page;
 import org.eu.konworkers.myweibodemo.domain.enties.MessageConstants;
+import org.eu.konworkers.myweibodemo.domain.enties.MessageResult;
 import org.eu.konworkers.myweibodemo.domain.enties.Result;
+import org.eu.konworkers.myweibodemo.domain.enties.UserResult;
+import org.eu.konworkers.myweibodemo.domain.pojo.Message;
 import org.eu.konworkers.myweibodemo.domain.pojo.User;
 import org.eu.konworkers.myweibodemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -90,6 +95,32 @@ public class UserConterller {
         Result passwordresult = userservice.editpassword(id, oldpassword, password);
 
         return passwordresult;
+    }
+
+    @RequestMapping("/getuser")
+    public UserResult getuser(Integer page){
+        UserResult userresult = new UserResult();
+        Page<User> page2 = userservice.getUserByPage(page);
+
+        userresult.setData(page2.getResult());
+        userresult.setTotal(page2.getTotal());
+        userresult.setPages(page2.getPages());
+
+        return userresult;
+    }
+
+    @RequestMapping("/deleteuser")
+    public Result deleteuser(@RequestParam("id") String id, @RequestParam("username")String username){
+        if("root".equals(username)){
+            return new Result(false,MessageConstants.DELETE_ROOT_FAIL);
+        }
+
+        try{
+            userservice.delete(id);
+            return new Result(true,MessageConstants.USER_DELETE_SUCCESS);
+        }catch (Exception e){
+            return new Result(false,MessageConstants.USER_DELETE_FAIL);
+        }
     }
 
 }

@@ -1,8 +1,11 @@
 package org.eu.konworkers.myweibodemo.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.eu.konworkers.myweibodemo.dao.UserDao;
 import org.eu.konworkers.myweibodemo.domain.enties.MessageConstants;
 import org.eu.konworkers.myweibodemo.domain.enties.Result;
+import org.eu.konworkers.myweibodemo.domain.pojo.Message;
 import org.eu.konworkers.myweibodemo.domain.pojo.User;
 import org.eu.konworkers.myweibodemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +105,17 @@ public class Userserviceimpl implements UserService {
         }else {
             return new Result(false, MessageConstants.EDIT_PASSWORDNOTMATCH_FAIL);
         }
+    }
+
+    @Override
+    public Page<User> getUserByPage(Integer page) {
+        PageHelper.startPage(page,5);
+        Page<User> page2 = userdao.selectAll();
+        return page2;
+    }
+
+    @Override
+    public void delete(String id) {
+        userdao.deleteById(id);
     }
 }

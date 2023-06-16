@@ -1,6 +1,8 @@
 package org.eu.konworkers.myweibodemo.service;
 
+import com.github.pagehelper.Page;
 import org.eu.konworkers.myweibodemo.domain.enties.Result;
+import org.eu.konworkers.myweibodemo.domain.pojo.Message;
 import org.eu.konworkers.myweibodemo.domain.pojo.User;
 
 public interface UserService {
@@ -15,4 +17,8 @@ public interface UserService {
     //public boolean passwordchecker(String id,String oldpassword);
 
     public Result editpassword(String id, String oldpassword, String password);
+
+    public Page<User> getUserByPage(Integer page);
+
+    public void delete(String id);
 }

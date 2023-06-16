@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setrole</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <template>
+        <el-table :data="userData" style="width: 100%">
+            <el-table-column prop="id" label="编号" width="180">
+            </el-table-column>
+            <el-table-column prop="createdTime" label="注册日期" width="180">
+                <template slot-scope="scope">
+                    {{ scope.row.cratedTime | formatDate }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="username" label="用户名" width="180">
+            </el-table-column>
+            <el-table-column prop="nickname" label="昵称" width="180">
+            </el-table-column>
+            <el-table-column prop="email" label="邮箱" width="180">
+            </el-table-column>
+            <el-table-column fixed="right" label="操作" width="180">
+                <template slot-scope="scope">
+                    <el-button size="small">角色</el-button>
+                    <el-button @click="deleteuser(scope.row)" type="danger" size="small">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <div class="block">
+            <el-pagination
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="page"
+                    :page-size="5"
+                    layout="total, prev, pager, next"
+                    :total="total">
+            </el-pagination>
+        </div>
+    </template>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        name: 'setrole',
+        data: {
+            userData:[
+                {
+                    id:'b8d90d36-f25e-463f-b1f1-57d5d9bca780',
+                    cratedTime: new Date(),
+                    username:'test20230612',
+                    nickname:'test20230612',
+                    email:'test20230612@test.com'
+                }
+            ],
+            page: 1,
+            total: 5
+        },
+        methods: {
+            handleCurrentChange(Page){
+                this.page = Page;
+                this.loaduser();
+            },
+            loaduser(){
+                axios.get("/user/getuser?page="+this.page).then((res) => {
+                    this.total = res.data.total;
+                    this.userData = res.data.data;
+                } );
+            },
+            deleteuser(row){
+                this.$confirm("你确定要删除此用户吗？","提示",{
+                    type:'warning'
+                }).then( () => {
+                    axios.get("/user/deleteuser?id="+row.id+"&username="+row.username).then((res) => {
+                        if(res.data.flag){
+                            this.$message({
+                                type:'success',
+                                message:res.data.message
+                            });
+                            this.loaduser();
+                        }else {
+                            this.$message.error(res.data.message);
+                        }
+                    } )
+                } );
+            }
+        },
+        created() {
+            this.loaduser();
+        },
+        filters: {
+            formatDate(value) {
+                const date = new Date(value);
+                const year = date.getFullYear();
+                const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                const day = ('0' + date.getDate()).slice(-2);
+                const hour = ('0' + date.getHours()).slice(-2);
+                const minute = ('0' + date.getMinutes()).slice(-2);
+                const second = ('0' + date.getSeconds()).slice(-2);
+                return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
+            }
+        }
+    })
+</script>
+</html>

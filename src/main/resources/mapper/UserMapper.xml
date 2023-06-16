@@ -16,7 +16,7 @@
     </resultMap>
 
     <!-- 定义查询语句 -->
-    <select id="selectAll" resultType="User">
+    <select id="selectAll" resultMap="baseresultmap">
         SELECT * FROM User
     </select>
 
