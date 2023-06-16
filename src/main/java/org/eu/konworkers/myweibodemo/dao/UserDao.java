@@ -26,4 +26,6 @@ public interface UserDao {
 
     public void editpassword(User user);
 
+    public void setrole(User user);
+
 }

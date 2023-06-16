@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/setrole.html").hasRole("ADMIN")
                     .antMatchers("/user/getuser").hasRole("ADMIN")
                     .antMatchers("/user/deleteuser").hasRole("ADMIN")
+                    .antMatchers("/user/setrole").hasRole("ADMIN")
+                    .antMatchers("/swagger-ui.html").hasRole("ADMIN")
                     .anyRequest()
                     .authenticated()
                     .and()

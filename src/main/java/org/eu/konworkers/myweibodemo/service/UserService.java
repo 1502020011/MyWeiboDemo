@@ -21,4 +21,6 @@ public interface UserService {
     public Page<User> getUserByPage(Integer page);
 
     public void delete(String id);
+
+    public void setrole(String id, String code);
 }

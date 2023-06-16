@@ -43,4 +43,8 @@
     <update id="editpassword" parameterType="User">
         UPDATE User SET PASSWORD = #{password} WHERE ID = #{id}
     </update>
+
+    <update id="setrole" parameterType="User">
+        UPDATE User SET ROLE_ID = #{roleId} WHERE ID = #{id}
+    </update>
 </mapper>

@@ -123,4 +123,20 @@ public class UserConterller {
         }
     }
 
+    @RequestMapping("/setrole")
+    public Result setrole(@RequestBody Map map){
+        String id = (String) map.get("id");
+        if ("23b01ead-2249-453b-be2f-b9349246fcde".equals(id)){
+            return new Result(false,MessageConstants.EDITROLE_ROOT_FAIL);
+        }
+        String code = (String) map.get("code");
+
+        try {
+            userservice.setrole(id,code);
+            return new Result(true,MessageConstants.ROLE_EDIT_SUCCESS);
+        }catch (Exception e){
+            return new Result(false,MessageConstants.ROLE_EDIT_FAIL);
+        }
+    }
+
 }

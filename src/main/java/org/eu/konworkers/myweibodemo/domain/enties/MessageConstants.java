@@ -27,4 +27,7 @@ public class MessageConstants {
     public static final String EDIT_PASSWORD_SUCCESS = "密码修改成功";
     public static final String EDIT_PASSWORD_FAIL = "密码修改失败";
     public static final String DELETE_ROOT_FAIL = "不能删除ROOT用户";
+    public static final String EDITROLE_ROOT_FAIL = "不能修改ROOT用户角色";
+    public static final String ROLE_EDIT_SUCCESS = "角色修改成功";
+    public static final String ROLE_EDIT_FAIL = "角色修改失败";
 }

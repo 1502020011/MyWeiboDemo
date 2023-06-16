@@ -118,4 +118,28 @@ public class Userserviceimpl implements UserService {
     public void delete(String id) {
         userdao.deleteById(id);
     }
+
+    @Override
+    public void setrole(String id, String code) {
+        String roleId = "";
+
+        switch (code) {
+            case "ROLE_USER":
+                roleId = "5c8616e2-0a1a-444c-993f-e25a88b09325";
+                break;
+            case "ROLE_REVIEWER":
+                roleId = "801700ae-42e0-404c-8ed1-90f37f2b8334";
+                break;
+            case "ROLE_ADMIN":
+                roleId = "c9eae77a-b3b5-4dd3-9614-99481554c866";
+                break;
+            default:
+                throw new RuntimeException("非法请求");
+        }
+
+        User user = new User();
+        user.setId(id);
+        user.setRoleId(roleId);
+        userdao.setrole(user);
+    }
 }

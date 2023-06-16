@@ -64,7 +64,7 @@
             <div slot="footer" class="dialog-footer">
                 <!--                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
                 <el-button @click="RoleFormVisible = false">取 消</el-button>
-                <el-button type="primary">提交修改</el-button>
+                <el-button type="primary" @click="sendrole">提交修改</el-button>
             </div>
         </el-dialog>
     </div>
@@ -91,7 +91,10 @@
             page: 1,
             total: 5,
             RoleFormVisible: false,
-            roleform:{}
+            roleform:{
+                code:'',
+                id: ''
+            }
         },
         methods: {
             handleCurrentChange(Page){
@@ -123,8 +126,21 @@
             },
             setrole(row){
                 this.RoleFormVisible = true;
-                //this.roleform.code = row.role.code;
-                //this.roleform.id = row.id;
+                this.roleform.code = row.role.code;
+                this.roleform.id = row.id;
+            },
+            sendrole(){
+                axios.post("/user/setrole",this.roleform).then((res) => {
+                    if(res.data.flag){
+                        this.$message({
+                            type:'success',
+                            message:res.data.message
+                        });
+                        this.RoleFormVisible = false;
+                    }else {
+                        this.$message.error(res.data.message);
+                    }
+                })
             }
         },
         created() {
