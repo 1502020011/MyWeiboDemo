@@ -24,7 +24,7 @@ public class UploadController {
 
     @RequestMapping("/updateicon")
     public Result updateicon(MultipartFile imgFile) throws IOException {
-        //token : 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
+        //token : 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
 
         byte[] fileBytes = imgFile.getBytes();
         byte[] encodedBytes = Base64.encodeBase64(fileBytes);

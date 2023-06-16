@@ -31,7 +31,7 @@ public class UploadUtils{
         httpput.setHeader("Cache-Control", "no-cache");
         httpput.setHeader("Connection", "keep-alive");
         httpput.setHeader("Content-Type", "application/json;charset=UTF-8");
-        httpput.setHeader("Authorization", "Bearer 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");
+        httpput.setHeader("Authorization", "Bearer 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");
 
         StringEntity stringEntity = new StringEntity(json,encode);
 
